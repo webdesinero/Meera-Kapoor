@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meera Kapoor - Linktree</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: linear-gradient(to bottom, #3a2518, #3b0808);
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding-bottom: 120px;
+        }
+        #bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .profile {
+            margin-bottom: 20px;
+        }
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid white;
+        }
+        h1 {
+            margin: 10px 0;
+        }
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 90%;
+            max-width: 350px;
+        }
+        .link {
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 10px;
+            text-decoration: none;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .link i {
+            font-size: 22px;
+        }
+        .link:hover {
+            background: rgba(253, 253, 253, 0.3);
+        }
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            border-radius: 15px;
+            width: 300px;
+            text-align: center;
+        }
+        .album-cover {
+            width: 100px;
+            height: 100px;
+            border-radius: 5%;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .progress {
+            width: 0%;
+            height: 5px;
+            background: white;
+            border-radius: 5px;
+        }
+        .time {
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+        .controls {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .controls button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .controls button:hover {
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+    <video autoplay muted loop id="bg-video">
+        <source src="background.mp4" type="video/mp4">
+    </video>
+    <div class="profile">
+        <img src="avatar.jpg" class="avatar" alt="Meera Kapoor">
+        <h1>Meera Kapoor</h1>
+        <p>Indian Singer | Melodic Soul</p>
+    </div>
+    <div class="links">
+        <a href="#" class="link"><i class="fab fa-instagram"></i> Instagram</a>
+        <a href="#" class="link"><i class="fab fa-youtube"></i> YouTube</a>
+        <a href="#" class="link"><i class="fab fa-spotify"></i> Spotify</a>
+        <a href="#" class="link"><i class="fab fa-apple"></i> Apple Music</a>
+    </div>
+    <div class="music-player">
+        <img id="album-cover" src="album.jpg" class="album-cover" alt="Album Cover">
+        <div class="song-info">
+            <h4 id="song-title">Meera's Melody</h4>
+            <p id="artist">Meera Kapoor</p>
+        </div>
+        <audio id="audio" src="song.mp3"></audio>
+        <div class="progress-bar" id="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        <div class="time">
+            <span id="current-time">0:00</span>
+            <span id="total-duration">0:00</span>
+        </div>
+        <div class="controls">
+            <button id="prev" class="control-btn"><i class="fas fa-backward"></i></button>
+            <button id="playPause" class="play-btn"><i class="fas fa-play"></i></button>
+            <button id="loop" class="control-btn"><i class="fas fa-redo"></i></button>
+            <button id="next" class="control-btn"><i class="fas fa-forward"></i></button>
+        </div>
+    </div>
+    <script>
+        const songs = [
+            { title: "Tere Sang", artist: "Meera Kapoor", src: "song.mp3", cover: "album.jpg" },
+            { title: "Dil Se Door", artist: "Meera Kapoor", src: "song2.mp3", cover: "album2.jpg" },
+            { title: "Eternal Harmony", artist: "Meera Kapoor", src: "song3.mp3", cover: "album3.jpg" }
+        ];
+    
+        let currentSongIndex = 0;
+    
+        const audio = document.getElementById("audio");
+        const playPause = document.getElementById("playPause");
+        const progressBar = document.getElementById("progress");
+        const progressContainer = document.getElementById("progress-bar");
+        const songTitle = document.getElementById("song-title");
+        const artist = document.getElementById("artist");
+        const albumCover = document.getElementById("album-cover");
+        const prevBtn = document.getElementById("prev");
+        const nextBtn = document.getElementById("next");
+        const loopBtn = document.getElementById("loop");
+        
+        
+    
+        function loadSong(index) {
+            const song = songs[index];
+            songTitle.textContent = song.title;
+            artist.textContent = song.artist;
+            albumCover.src = song.cover;
+            audio.src = song.src;
+        }
+    
+        playPause.addEventListener("click", () => {
+            if (audio.paused) {
+                audio.play();
+                playPause.innerHTML = '<i class="fas fa-pause"></i>';
+            } else {
+                audio.pause();
+                playPause.innerHTML = '<i class="fas fa-play"></i>';
+            }
+        });
+    
+        audio.addEventListener("timeupdate", () => {
+            const progressPercent = (audio.currentTime / audio.duration) * 100;
+            progressBar.style.width = `${progressPercent}%`;
+        });
+    
+        progressContainer.addEventListener("click", (e) => {
+            const width = progressContainer.clientWidth;
+            const clickX = e.offsetX;
+            const duration = audio.duration;
+            audio.currentTime = (clickX / width) * duration;
+        });
+    
+        prevBtn.addEventListener("click", () => {
+            currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+            loadSong(currentSongIndex);
+            audio.play();
+            playPause.innerHTML = '<i class="fas fa-pause"></i>';
+        });
+    
+        nextBtn.addEventListener("click", () => {
+            currentSongIndex = (currentSongIndex + 1) % songs.length;
+            loadSong(currentSongIndex);
+            audio.play();
+            playPause.innerHTML = '<i class="fas fa-pause"></i>';
+        });
+    
+        loopBtn.addEventListener("click", () => {
+    audio.loop = !audio.loop;
+    if (audio.loop) {
+        loopBtn.style.color = "#000000"; // Yellow when active
+        
+    } else {
+        loopBtn.style.color = "white"; // Default color
+        loopBtn.style.textShadow = "none";
+    }
+
+    
+});
+
+    
+        loadSong(currentSongIndex);
+    </script>
+    
+</body>
+</html>
