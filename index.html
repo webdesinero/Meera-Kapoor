@@ -22,10 +22,7 @@
             justify-content: flex-start;
             min-height: 100vh;
             overflow-y: auto;
-            padding-bottom: 120px; /* Ensure space for the music player */
-            transform: scale(0.); /* This will scale the entire content to 90% */
-            
-            
+            padding-bottom: 120px;
         }
         #bg-video {
             position: fixed;
@@ -37,7 +34,7 @@
             z-index: -1;
         }
         .profile {
-            margin-bottom: 20x;
+            margin-bottom: 20px;
         }
         .avatar {
             width: 100px;
@@ -51,9 +48,12 @@
         .links {
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
             gap: 15px;
             width: 90%;
             max-width: 350px;
+            margin-bottom: 30px;
         }
         .link {
             padding: 12px;
@@ -77,29 +77,19 @@
             background: rgba(253, 253, 253, 0.3);
         }
         .music-player {
-    position: fixed;
-    bottom: 20px; /* Slight space from bottom */
-    left: 50%;
-    transform: translateX(-50%);
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    padding: 15px;
-    border-radius: 10px; /* Match the rounded corners of the links */
-    width: 90%; /* Match the width of the links container */
-    max-width: 350px; /* Match the max width of the links container */
-    text-align: center;
-    z-index: 1;
-    transition: background 0.3s; /* Smooth background color transition */
-}
-
-.music-player:hover {
-    background: rgba(253, 253, 253, 0.3); /* Hover effect like links */
-}
-
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border-radius: 10px;
+            width: 90%;  /* Same width as links */
+            max-width: 350px; /* Same max-width as links */
+            text-align: center;
+            margin-top: 20px;
+        }
         .album-cover {
             width: 80px;
             height: 80px;
@@ -140,8 +130,6 @@
         .controls button:hover {
             color: #ffffff;
         }
-
-       
     </style>
 </head>
 <body>
@@ -158,7 +146,6 @@
     <a href="#" class="link" data-song="1"><i class="fab fa-youtube"></i> YouTube</a>
     <a href="#" class="link" data-song="2"><i class="fab fa-spotify"></i> Spotify</a>
     <a href="#" class="link" data-song="0"><i class="fab fa-apple"></i> Apple Music</a>
-</div>
 
     <div class="music-player">
         <img id="album-cover" src="album.jpg" class="album-cover" alt="Album Cover">
@@ -181,6 +168,8 @@
             <button id="next" class="control-btn"><i class="fas fa-forward"></i></button>
         </div>
     </div>
+</div>
+
     <script>
         const songs = [
             { title: "Tere Sang", artist: "Meera Kapoor", src: "song.mp3", cover: "album.jpg" },
@@ -188,10 +177,8 @@
             { title: "Eternal Harmony", artist: "Meera Kapoor", src: "song3.mp3", cover: "album3.jpg" }
         ];
 
-        
-    
         let currentSongIndex = 0;
-    
+
         const audio = document.getElementById("audio");
         const playPause = document.getElementById("playPause");
         const progressBar = document.getElementById("progress");
@@ -202,7 +189,7 @@
         const prevBtn = document.getElementById("prev");
         const nextBtn = document.getElementById("next");
         const loopBtn = document.getElementById("loop");
-    
+
         function loadSong(index) {
             const song = songs[index];
             songTitle.textContent = song.title;
@@ -210,7 +197,7 @@
             albumCover.src = song.cover;
             audio.src = song.src;
         }
-    
+
         playPause.addEventListener("click", () => {
             if (audio.paused) {
                 audio.play();
@@ -220,33 +207,33 @@
                 playPause.innerHTML = '<i class="fas fa-play"></i>';
             }
         });
-    
+
         audio.addEventListener("timeupdate", () => {
             const progressPercent = (audio.currentTime / audio.duration) * 100;
             progressBar.style.width = `${progressPercent}%`;
         });
-    
+
         progressContainer.addEventListener("click", (e) => {
             const width = progressContainer.clientWidth;
             const clickX = e.offsetX;
             const duration = audio.duration;
             audio.currentTime = (clickX / width) * duration;
         });
-    
+
         prevBtn.addEventListener("click", () => {
             currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
             loadSong(currentSongIndex);
             audio.play();
             playPause.innerHTML = '<i class="fas fa-pause"></i>';
         });
-    
+
         nextBtn.addEventListener("click", () => {
             currentSongIndex = (currentSongIndex + 1) % songs.length;
             loadSong(currentSongIndex);
             audio.play();
             playPause.innerHTML = '<i class="fas fa-pause"></i>';
         });
-    
+
         loopBtn.addEventListener("click", () => {
             audio.loop = !audio.loop;
             if (audio.loop) {
@@ -256,7 +243,7 @@
                 loopBtn.style.textShadow = "none";
             }
         });
-    
+
         loadSong(currentSongIndex);
     </script>
 </body>
