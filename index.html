@@ -69,6 +69,7 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            width: 100%; /* Ensures the link stretches to full width */
         }
         .link i {
             font-size: 22px;
@@ -96,7 +97,7 @@
             border-radius: 5%;
         }
         .progress-bar {
-            width: 100%;
+            width: 90%;
             height: 5px;
             background: rgba(255, 255, 255, 0.3);
             border-radius: 5px;
@@ -116,7 +117,7 @@
         }
         .controls {
             display: flex;
-            gap: 15px;
+            gap: 20px;
             align-items: center;
         }
         .controls button {
@@ -141,12 +142,12 @@
         <h1>Meera Kapoor</h1>
         <p>Indian Singer | Melodic Soul</p>
     </div>
-   <div class="links">
-    <a href="#" class="link" data-song="0"><i class="fab fa-instagram"></i> Instagram</a>
-    <a href="#" class="link" data-song="1"><i class="fab fa-youtube"></i> YouTube</a>
-    <a href="#" class="link" data-song="2"><i class="fab fa-spotify"></i> Spotify</a>
-    <a href="#" class="link" data-song="0"><i class="fab fa-apple"></i> Apple Music</a>
-
+    <div class="links">
+        <a href="#" class="link" data-song="0"><i class="fab fa-instagram"></i> Instagram</a>
+        <a href="#" class="link" data-song="1"><i class="fab fa-youtube"></i> YouTube</a>
+        <a href="#" class="link" data-song="2"><i class="fab fa-spotify"></i> Spotify</a>
+        <a href="#" class="link" data-song="0"><i class="fab fa-apple"></i> Apple Music</a>
+    </div>
     <div class="music-player">
         <img id="album-cover" src="album.jpg" class="album-cover" alt="Album Cover">
         <div class="song-info">
@@ -168,7 +169,6 @@
             <button id="next" class="control-btn"><i class="fas fa-forward"></i></button>
         </div>
     </div>
-</div>
 
     <script>
         const songs = [
