@@ -19,10 +19,13 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            height: 100vh;
-            padding-bottom: 180px; /* Increased padding to prevent overlap */
-            overflow: hidden;
+            justify-content: flex-start;
+            min-height: 100vh;
+            overflow-y: auto;
+            padding-bottom: 120px; /* Ensure space for the music player */
+            transform: scale(0.); /* This will scale the entire content to 90% */
+            
+            
         }
         #bg-video {
             position: fixed;
@@ -34,7 +37,7 @@
             z-index: -1;
         }
         .profile {
-            margin-bottom: 20px;
+            margin-bottom: 20x;
         }
         .avatar {
             width: 100px;
@@ -43,7 +46,7 @@
             border: 3px solid white;
         }
         h1 {
-            margin: 10px 0;
+            margin: 10px;
         }
         .links {
             display: flex;
@@ -51,7 +54,6 @@
             gap: 15px;
             width: 90%;
             max-width: 350px;
-            margin-bottom: 100px; /* Extra margin to prevent overlap */
         }
         .link {
             padding: 12px;
@@ -75,22 +77,29 @@
             background: rgba(253, 253, 253, 0.3);
         }
         .music-player {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            padding: 15px;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 300px;
-            text-align: center;
-        }
+    position: fixed;
+    bottom: 20px; /* Slight space from bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    border-radius: 10px; /* Match the rounded corners of the links */
+    width: 90%; /* Match the width of the links container */
+    max-width: 350px; /* Match the max width of the links container */
+    text-align: center;
+    z-index: 1;
+    transition: background 0.3s; /* Smooth background color transition */
+}
+
+.music-player:hover {
+    background: rgba(253, 253, 253, 0.3); /* Hover effect like links */
+}
+
         .album-cover {
             width: 80px;
             height: 80px;
@@ -129,8 +138,10 @@
             transition: 0.3s;
         }
         .controls button:hover {
-            color: #f1c40f;
+            color: #ffffff;
         }
+
+       
     </style>
 </head>
 <body>
@@ -142,12 +153,13 @@
         <h1>Meera Kapoor</h1>
         <p>Indian Singer | Melodic Soul</p>
     </div>
-    <div class="links">
-        <a href="#" class="link"><i class="fab fa-instagram"></i> Instagram</a>
-        <a href="#" class="link"><i class="fab fa-youtube"></i> YouTube</a>
-        <a href="#" class="link"><i class="fab fa-spotify"></i> Spotify</a>
-        <a href="#" class="link"><i class="fab fa-apple"></i> Apple Music</a>
-    </div>
+   <div class="links">
+    <a href="#" class="link" data-song="0"><i class="fab fa-instagram"></i> Instagram</a>
+    <a href="#" class="link" data-song="1"><i class="fab fa-youtube"></i> YouTube</a>
+    <a href="#" class="link" data-song="2"><i class="fab fa-spotify"></i> Spotify</a>
+    <a href="#" class="link" data-song="0"><i class="fab fa-apple"></i> Apple Music</a>
+</div>
+
     <div class="music-player">
         <img id="album-cover" src="album.jpg" class="album-cover" alt="Album Cover">
         <div class="song-info">
@@ -175,6 +187,8 @@
             { title: "Dil Se Door", artist: "Meera Kapoor", src: "song2.mp3", cover: "album2.jpg" },
             { title: "Eternal Harmony", artist: "Meera Kapoor", src: "song3.mp3", cover: "album3.jpg" }
         ];
+
+        
     
         let currentSongIndex = 0;
     
@@ -188,8 +202,6 @@
         const prevBtn = document.getElementById("prev");
         const nextBtn = document.getElementById("next");
         const loopBtn = document.getElementById("loop");
-        
-        
     
         function loadSong(index) {
             const song = songs[index];
@@ -236,22 +248,16 @@
         });
     
         loopBtn.addEventListener("click", () => {
-    audio.loop = !audio.loop;
-    if (audio.loop) {
-        loopBtn.style.color = "#000000"; // Yellow when active
-        
-    } else {
-        loopBtn.style.color = "white"; // Default color
-        loopBtn.style.textShadow = "none";
-    }
-
-    
-});
-
+            audio.loop = !audio.loop;
+            if (audio.loop) {
+                loopBtn.style.color = "#000000"; // Yellow when active
+            } else {
+                loopBtn.style.color = "white"; // Default color
+                loopBtn.style.textShadow = "none";
+            }
+        });
     
         loadSong(currentSongIndex);
     </script>
-    
 </body>
 </html>
-
