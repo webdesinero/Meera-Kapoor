@@ -13,17 +13,19 @@
             font-family: 'Poppins', sans-serif;
         }
         body {
-            background: linear-gradient(to bottom, #3a2518, #3b0808);
-            color: white;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            min-height: 100vh;
-            overflow-y: auto;
-            padding-bottom: 120px;
-        }
+    background: linear-gradient(to bottom, #3a2518, #3b0808);
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 100vh;
+    overflow-y: auto;
+    padding-bottom: 120px;
+    margin-top: 50px; /* Adjust this value to control how much you want to move the UI down */
+}
+
         #bg-video {
             position: fixed;
             top: 0;
@@ -34,11 +36,13 @@
             z-index: -1;
         }
         .profile {
-            margin-bottom: 20px;
-        }
+    margin-top: 50px; /* Adjust the value to position the profile lower */
+    margin-bottom: 20px;
+}
+
         .avatar {
-            width: 100px;
-            height: 100px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             border: 3px solid white;
         }
